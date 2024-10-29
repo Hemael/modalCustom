@@ -1,9 +1,17 @@
 // src/CustomModal.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 
-const CustomModal = ({ isOpen, onRequestClose, title, children }) => {
+const CustomModal = ({ isOpen, onRequestClose, title, children, buttonText }) => {
   Modal.setAppElement('#root'); // Assure-toi que #root est bien l'élément parent dans le projet utilisateur
+  useEffect(() => {
+    if (!buttonText){
+      setButtonText('Close')
+    }
+    else{
+      setButtonText(buttonText)
+    }
+  },[buttonText])
 
   return (
     <Modal
@@ -23,7 +31,7 @@ const CustomModal = ({ isOpen, onRequestClose, title, children }) => {
     >
       <h2>{title}</h2>
       <div>{children}</div>
-      <button onClick={onRequestClose}>Close</button>
+      <button onClick={onRequestClose}>{buttonText}</button>
     </Modal>
   );
 };
